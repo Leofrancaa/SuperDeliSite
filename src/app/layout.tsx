@@ -1,31 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/bricolage-grotesque/standard.css";
+import "@fontsource-variable/unbounded";
+import "@fontsource-variable/figtree";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Superdeli · Padaria e delicatessen em Conceição do Jacuípe",
+  title: "SuperDeli · Delicatessen em Conceição do Jacuípe",
   description:
-    "Pão quentinho, buffet por quilo do café da manhã ao fim da tarde, salgados e doces. Superdeli, em Conceição do Jacuípe, Bahia.",
+    "Deixamos seu dia mais gostoso. Pães e doces, buffet do café da manhã ao almoço e cestas para presentear, na Rua Dois de Julho, Centro de Conceição do Jacuípe.",
   openGraph: {
-    title: "Superdeli",
-    description:
-      "Padaria, delicatessen e restaurante por quilo em Conceição do Jacuípe, Bahia.",
+    title: "SuperDeli Delicatessen",
+    description: "Deixamos seu dia mais gostoso. Pães, doces, buffet e cestas em Conceição do Jacuípe.",
     locale: "pt_BR",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1f1712",
+  themeColor: "#232323",
   width: "device-width",
   initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-tom="escuro">
+    <html lang="pt-BR">
       <body>{children}</body>
     </html>
   );

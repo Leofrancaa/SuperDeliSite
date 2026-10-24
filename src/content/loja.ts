@@ -1,45 +1,39 @@
-// Dados da loja. Troque os campos marcados com `confirmado: false` pelos
-// valores reais e mude para `true` (o selo "a confirmar" some do site).
+// Dados da loja. Campos com `confirmado: false` aparecem no site com o selo
+// "a confirmar": troque pelo valor real e mude para `true`.
 
 export type Info = { valor: string; confirmado: boolean };
 
 export const loja = {
-  nome: "Superdeli",
-  descricao: "Padaria, delicatessen e restaurante por quilo",
-  cidade: "Conceição do Jacuípe, Bahia",
-  endereco: { valor: "Endereço da loja, Centro", confirmado: false } as Info,
+  nome: "SuperDeli",
+  slogan: "Deixamos seu dia mais gostoso.",
+  cidade: "Conceição do Jacuípe, BA",
+  endereco: { valor: "Rua Dois de Julho, Centro", confirmado: true } as Info,
   whatsapp: { valor: "", confirmado: false } as Info, // só números, ex.: 5575999999999
-  instagram: { valor: "", confirmado: false } as Info, // sem @, ex.: superdeli
-  mapa: "https://www.google.com/maps/search/?api=1&query=Superdeli+Concei%C3%A7%C3%A3o+do+Jacu%C3%ADpe+BA",
+  instagram: { valor: "superdelibahia", confirmado: true } as Info,
+  links: "https://linktr.ee/superdeliba",
+  mapa: "https://www.google.com/maps/search/?api=1&query=SuperDeli+Rua+Dois+de+Julho+Concei%C3%A7%C3%A3o+do+Jacu%C3%ADpe+BA",
 };
 
 export const horarios: { dias: string; horas: Info }[] = [
-  { dias: "Segunda a sexta", horas: { valor: "6h às 21h", confirmado: false } },
-  { dias: "Sábado", horas: { valor: "6h às 21h", confirmado: false } },
-  {
-    dias: "Domingo",
-    horas: { valor: "6h às 13h e 16h às 20h", confirmado: false },
-  },
+  { dias: "Segunda a sábado", horas: { valor: "6h às 21h", confirmado: true } },
+  { dias: "Domingos e feriados", horas: { valor: "6h30 às 11h e à tarde", confirmado: false } },
 ];
 
 // Refeições do buffet, na ordem do dia.
 export const refeicoes: { nome: string; texto: string; horas: Info }[] = [
   {
     nome: "Café da manhã",
-    texto:
-      "Cuscuz, ovos, frutas, pães, bolos e café passado na hora, no buffet por quilo.",
-    horas: { valor: "6h às 10h", confirmado: false },
+    texto: "Cuscuz, pães, bolos, frutas e café para começar o dia, no buffet por quilo.",
+    horas: { valor: "a partir das 6h", confirmado: false },
   },
   {
     nome: "Almoço",
-    texto:
-      "Comida caseira por quilo: arroz, feijão, carnes, saladas e acompanhamentos do dia.",
+    texto: "Comida caseira por quilo, com opções do dia.",
     horas: { valor: "11h às 14h30", confirmado: false },
   },
   {
     nome: "Raízes e cuscuz",
-    texto:
-      "Aipim, inhame, batata-doce, cuscuz e o que combina com eles, para o fim do dia.",
-    horas: { valor: "16h às 20h", confirmado: false },
+    texto: "Aipim, inhame, cuscuz e acompanhamentos para o fim da tarde.",
+    horas: { valor: "fim da tarde", confirmado: false },
   },
 ];
