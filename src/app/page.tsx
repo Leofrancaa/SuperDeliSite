@@ -20,8 +20,6 @@ export default function Home() {
   const instaUrl = `https://instagram.com/${insta}`;
   return (
     <>
-      {/* foto de fundo da abertura, atrás das partículas */}
-      <div className="hero-foto" aria-hidden="true" />
       <Particulas />
       <a className="pular" href="#conteudo">
         Ir para o conteúdo

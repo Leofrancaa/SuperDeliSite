@@ -689,17 +689,6 @@ html[data-tom="ouro"] .botao-topo {
   padding: 0.7rem var(--gutter);
 }
 
-/* Foto de fundo da abertura: fica atrás das partículas e escurece para baixo */
-.hero-foto {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 100svh;
-  z-index: -1;
-  background:
-    linear-gradient(180deg, rgb(28 28 28 / 0.8) 0%, rgb(28 28 28 / 0.9) 60%, #1c1c1c 100%),
-    url("/fotos/pao-frances.jpg") center / cover no-repeat;
-}
-
 /* Atalhos por categoria, com foto */
 .atalhos-bloco {
   padding-top: clamp(3rem, 6vw, 4.5rem);

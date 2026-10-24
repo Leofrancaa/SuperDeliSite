@@ -9,8 +9,8 @@ export const fotos = {
     dica: "Fachada da loja, de dia, na horizontal",
   },
   forno: {
-    arquivo: "pao-frances.jpg",
-    alt: "Bandeja de pão francês fresquinho",
+    arquivo: "",
+    alt: "Pães saindo do forno",
     dica: "Forno aberto com uma fornada de pão",
   },
   salao: {
@@ -29,7 +29,7 @@ export const fotos = {
     dica: "Equipe reunida no balcão",
   },
   "pao-frances": {
-    arquivo: "pao-frances.jpg",
+    arquivo: "",
     alt: "Pão francês",
     dica: "Cesto de pão francês",
   },
