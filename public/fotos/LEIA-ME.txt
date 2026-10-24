@@ -1,0 +1,2 @@
+Coloque aqui as fotos do site (JPG, na horizontal, até ~1600 px de largura)
+e preencha o nome do arquivo em src/content/fotos.ts.

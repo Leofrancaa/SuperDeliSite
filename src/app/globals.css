@@ -1,0 +1,610 @@
+/* Superdeli — paleta do forno: casca escura, trigo, folha e farinha. */
+:root {
+  --forno: #1f1712;
+  --folha: #26321f;
+  --farinha: #eceee6;
+  --trigo: #e9a62f;
+  --casca: #9b4a1c;
+  --creme: #f6ecd6;
+  --fonte: "Bricolage Grotesque Variable", "Segoe UI", system-ui, sans-serif;
+  --largura: 76rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+html[data-tom="escuro"] {
+  --fundo: var(--forno);
+  --tinta: var(--creme);
+  --suave: #c8b99d;
+  --linha: rgb(246 236 214 / 0.16);
+  --vazio: rgb(246 236 214 / 0.06);
+}
+html[data-tom="folha"] {
+  --fundo: var(--folha);
+  --tinta: #f2ead2;
+  --suave: #c3c6a8;
+  --linha: rgb(242 234 210 / 0.18);
+  --vazio: rgb(242 234 210 / 0.07);
+}
+html[data-tom="claro"] {
+  --fundo: var(--farinha);
+  --tinta: var(--forno);
+  --suave: #5c554a;
+  --linha: rgb(31 23 18 / 0.14);
+  --vazio: rgb(31 23 18 / 0.05);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  background: var(--fundo);
+  color: var(--tinta);
+  transition:
+    background-color 0.9s ease,
+    color 0.6s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--trigo);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.pular {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 30;
+  padding: 0.6rem 1rem;
+  background: var(--trigo);
+  color: var(--forno);
+  font-weight: 700;
+}
+.pular:focus {
+  top: 1rem;
+}
+
+/* Partículas: fundo fixo atrás do conteúdo */
+.particulas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.particulas canvas {
+  display: block;
+}
+
+main,
+.topo,
+.rodape {
+  position: relative;
+  z-index: 1;
+}
+
+/* Topo */
+.topo {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.85rem var(--gutter);
+  background: color-mix(in srgb, var(--fundo) 78%, transparent);
+  backdrop-filter: blur(10px);
+  transition: background-color 0.9s ease;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1.45rem;
+  font-weight: 800;
+  font-stretch: 85%;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.logo svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: var(--trigo);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.topo nav {
+  display: flex;
+  gap: 1.6rem;
+  margin-left: auto;
+}
+.topo nav a {
+  font-size: 1rem;
+  font-weight: 550;
+  text-decoration: none;
+  color: var(--suave);
+  transition: color 0.2s;
+}
+.topo nav a:hover {
+  color: var(--tinta);
+}
+
+/* Botões */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  border: 2px solid var(--trigo);
+  border-radius: 4px;
+  background: var(--trigo);
+  color: var(--forno);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+.botao:hover {
+  background: transparent;
+  color: var(--tinta);
+}
+.botao-linha {
+  background: transparent;
+  color: var(--tinta);
+  border-color: var(--linha);
+}
+.botao-linha:hover {
+  border-color: var(--trigo);
+}
+.botao-topo {
+  min-height: 2.6rem;
+  font-size: 0.98rem;
+}
+
+/* Abertura */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 6rem var(--gutter) 3.5rem;
+}
+.marca {
+  align-self: center;
+  justify-self: center;
+  margin-top: -8vh;
+  font-size: clamp(4.2rem, 17vw, 15rem);
+  font-weight: 800;
+  font-stretch: 100%;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+  color: var(--tinta);
+  transition: color 0.6s;
+}
+/* com WebGL a marca é desenhada pelas partículas; o texto fica para leitores de tela */
+.webgl .marca {
+  color: transparent;
+}
+.hero-base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  max-width: var(--largura);
+  width: 100%;
+  margin: 0 auto;
+}
+.hero-texto {
+  max-width: 30ch;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.35;
+  color: var(--suave);
+}
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Blocos */
+.bloco {
+  padding: 22vh var(--gutter);
+}
+.bloco > * {
+  max-width: var(--largura);
+  margin-left: auto;
+  margin-right: auto;
+}
+.coluna {
+  max-width: var(--largura);
+}
+.coluna > * {
+  max-width: 34rem;
+}
+.coluna-direita > .texto {
+  max-width: 34rem;
+  margin-left: auto;
+}
+h2 {
+  font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+  font-weight: 780;
+  font-stretch: 78%;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-stretch: 88%;
+  line-height: 1.2;
+}
+.abre {
+  margin-top: 1.4rem;
+  font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--suave);
+  max-width: 36ch;
+}
+.cabeca {
+  padding-bottom: 3.5rem;
+}
+/* no desktop o cabeçalho ocupa a altura da tela para a forma aparecer ao lado */
+@media (min-width: 900px) {
+  .cabeca {
+    min-height: 62vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 6rem;
+  }
+}
+.cabeca > * {
+  max-width: 34rem;
+}
+
+/* Fotos e espaços reservados */
+.foto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.foto-vazia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1.5px dashed var(--linha);
+  background: var(--vazio);
+  color: var(--suave);
+  font-size: 0.9rem;
+  text-align: center;
+}
+.foto-vazia svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.foto-forno {
+  margin-top: 2.5rem;
+  max-width: 26rem;
+}
+
+/* Cardápio */
+.abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.8rem;
+  border-bottom: 1px solid var(--linha);
+  margin-bottom: 2.5rem;
+}
+.aba {
+  position: relative;
+  padding: 0.8rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 650;
+  color: var(--suave);
+  cursor: pointer;
+}
+.aba[aria-selected="true"] {
+  color: var(--tinta);
+}
+.aba[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--casca);
+}
+.produtos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem 2rem;
+}
+.produto-grande {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.produto-grande .foto {
+  aspect-ratio: auto;
+  height: calc(100% - 7.5rem);
+  min-height: 18rem;
+}
+.produto-grande h3 {
+  font-size: 2rem;
+}
+.produto-texto {
+  margin-top: 0.9rem;
+}
+.produto-texto p {
+  margin-top: 0.35rem;
+  color: var(--suave);
+  font-size: 1.02rem;
+  max-width: 40ch;
+}
+.medida {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--casca);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .produtos {
+    animation: surgir 0.45s ease both;
+  }
+}
+@keyframes surgir {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Buffet: as refeições na ordem do dia */
+.dia {
+  list-style: none;
+  margin-top: 2.8rem;
+  margin-bottom: 0;
+  padding: 0;
+}
+.dia li {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1.25rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--linha);
+}
+.hora {
+  font-weight: 750;
+  font-stretch: 85%;
+  font-size: 1.15rem;
+  color: var(--trigo);
+  line-height: 1.3;
+}
+.dia p {
+  margin-top: 0.3rem;
+  color: var(--suave);
+  font-size: 1.02rem;
+}
+
+/* Galeria */
+.mosaico {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 15rem;
+  gap: 1rem;
+}
+.mosaico .foto {
+  aspect-ratio: auto;
+  height: 100%;
+}
+.mosaico .larga {
+  grid-column: span 2;
+}
+.mosaico .alta {
+  grid-row: span 2;
+}
+
+/* Visite */
+address {
+  margin-top: 2rem;
+  font-style: normal;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  line-height: 1.35;
+}
+.horarios {
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+}
+.horarios caption {
+  text-align: left;
+  font-weight: 700;
+  padding-bottom: 0.6rem;
+}
+.horarios th,
+.horarios td {
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--linha);
+  text-align: left;
+  font-weight: 450;
+  vertical-align: top;
+}
+.horarios td {
+  text-align: right;
+  color: var(--suave);
+}
+.visite .acoes {
+  margin-top: 2.2rem;
+}
+.selo {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.45rem;
+  border: 1px solid var(--trigo);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--trigo);
+  vertical-align: 0.15em;
+  white-space: nowrap;
+}
+
+/* Rodapé */
+.rodape {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem var(--gutter);
+  border-top: 1px solid var(--linha);
+  color: var(--suave);
+  font-size: 0.95rem;
+}
+
+/* Telas médias */
+@media (max-width: 1000px) {
+  .produtos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mosaico {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Celular: a forma das partículas fica no alto e o texto começa abaixo dela */
+@media (max-width: 899px) {
+  .topo nav {
+    display: none;
+  }
+  .botao-topo {
+    margin-left: auto;
+  }
+  .bloco {
+    padding: 14vh var(--gutter);
+  }
+  .padaria,
+  .buffet,
+  .visite,
+  .cabeca {
+    padding-top: 40vh;
+  }
+  .cabeca {
+    padding-bottom: 2.5rem;
+  }
+  #cardapio,
+  #fotos {
+    padding-top: 0;
+  }
+  .coluna-direita > .texto {
+    margin-left: 0;
+  }
+  .abas {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .aba {
+    flex-shrink: 0;
+  }
+  .marca {
+    margin-top: -16vh;
+  }
+}
+@media (max-width: 560px) {
+  body {
+    font-size: 1.0625rem;
+  }
+  .produtos {
+    grid-template-columns: 1fr;
+  }
+  .produto-grande {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .produto-grande .foto {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+  .produto-grande h3 {
+    font-size: 1.6rem;
+  }
+  .mosaico {
+    grid-auto-rows: 11rem;
+  }
+  .dia li {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+  .hero-base .acoes,
+  .visite .acoes {
+    width: 100%;
+  }
+  .acoes .botao {
+    flex: 1 1 100%;
+  }
+}
+
+.hora .selo {
+  display: table;
+  margin: 0.35rem 0 0;
+}
