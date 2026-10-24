@@ -2,6 +2,7 @@ import { Particulas } from "@/components/Particulas";
 import { Catalogo } from "@/components/Catalogo";
 import { Foto } from "@/components/Foto";
 import { Valor } from "@/components/AConfirmar";
+import { Marca } from "@/components/Marca";
 import { horarios, loja, refeicoes } from "@/content/loja";
 import type { FotoId } from "@/content/fotos";
 
@@ -23,11 +24,8 @@ export default function Home() {
         Ir para o conteúdo
       </a>
       <header className="topo">
-        <a className="logo" href="#inicio" aria-label="Superdeli, início">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M2 22 16 8M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4ZM11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" />
-          </svg>
-          superdeli
+        <a className="logo" href="#inicio" aria-label="SuperDeli, início">
+          <Marca />
         </a>
         <nav aria-label="Seções">
           <a href="#padaria">Padaria</a>
@@ -47,18 +45,21 @@ export default function Home() {
           data-forma="marca"
           data-tom="escuro"
         >
-          <h1 className="marca">
-            superdeli
+          <h1 className="marca-hero">
+            SuperDeli
             <span className="sr">
               {" "}
               — padaria e delicatessen em Conceição do Jacuípe
             </span>
           </h1>
           <div className="hero-base">
-            <p className="hero-texto">
-              {loja.descricao} em {loja.cidade}. Do pão da manhã ao cuscuz do
-              fim da tarde.
-            </p>
+            <div className="hero-texto">
+              <p className="hero-slogan">{loja.slogan}</p>
+              <p>
+                Pães e doces, buffet do café da manhã ao almoço e cestas para
+                presentear. Na {loja.endereco.valor}, em {loja.cidade}.
+              </p>
+            </div>
             <div className="acoes">
               <a className="botao" href="#cardapio">
                 Ver o cardápio
@@ -77,7 +78,7 @@ export default function Home() {
           data-tom="escuro"
         >
           <div className="coluna">
-            <h2>Feito aqui, todo dia.</h2>
+            <h2>Na SuperDeli tem pão francês fresquinho.</h2>
             <p className="abre">
               Pão francês, pão delícia, bolos e salgados preparados na nossa
               cozinha. Passe cedo para o café ou no fim da tarde para levar pão
@@ -103,7 +104,7 @@ export default function Home() {
           id="buffet"
           className="bloco buffet"
           data-forma="prato"
-          data-tom="folha"
+          data-tom="ouro"
         >
           <div className="coluna coluna-direita">
             <div className="texto">
@@ -130,7 +131,7 @@ export default function Home() {
           <div className="cabeca" data-forma="molduras" data-tom="claro">
             <h2>A loja</h2>
             <p className="abre">
-              Um pouco do salão, da vitrine e de quem faz a Superdeli.
+              Um pouco do salão, da vitrine e de quem faz a SuperDeli.
             </p>
           </div>
           <div className="mosaico" data-forma="poeira" data-tom="claro">
@@ -147,7 +148,7 @@ export default function Home() {
           data-tom="escuro"
         >
           <div className="coluna">
-            <h2>Venha à Superdeli.</h2>
+            <h2>Venha à SuperDeli.</h2>
             <address>
               <Valor info={loja.endereco} />
               <br />
@@ -192,7 +193,7 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Instagram
+                  @{insta}
                 </a>
               )}
             </div>
@@ -201,7 +202,11 @@ export default function Home() {
       </main>
 
       <footer className="rodape">
-        <span>Superdeli, {loja.cidade}</span>
+        <Marca />
+        <span className="rodape-slogan">{loja.slogan}</span>
+        <a href={loja.links} target="_blank" rel="noopener noreferrer">
+          Todos os contatos
+        </a>
         <a href="#inicio">Voltar ao topo</a>
       </footer>
     </>

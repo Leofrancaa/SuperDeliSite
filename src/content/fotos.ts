@@ -5,17 +5,17 @@
 export const fotos = {
   fachada: {
     arquivo: "",
-    alt: "Fachada da Superdeli",
+    alt: "Fachada da SuperDeli",
     dica: "Fachada da loja, de dia, na horizontal",
   },
   forno: {
-    arquivo: "",
-    alt: "Pães saindo do forno",
+    arquivo: "pao-frances.jpg",
+    alt: "Bandeja de pão francês fresquinho",
     dica: "Forno aberto com uma fornada de pão",
   },
   salao: {
     arquivo: "",
-    alt: "Salão da Superdeli",
+    alt: "Salão da SuperDeli",
     dica: "Salão com as mesas, na horizontal",
   },
   vitrine: {
@@ -25,11 +25,11 @@ export const fotos = {
   },
   equipe: {
     arquivo: "",
-    alt: "Equipe da Superdeli",
+    alt: "Equipe da SuperDeli",
     dica: "Equipe reunida no balcão",
   },
   "pao-frances": {
-    arquivo: "",
+    arquivo: "pao-frances.jpg",
     alt: "Pão francês",
     dica: "Cesto de pão francês",
   },
@@ -64,6 +64,7 @@ export const fotos = {
     dica: "Bandeja de mini salgados",
   },
   pudim: { arquivo: "", alt: "Pudim", dica: "Pudim inteiro com calda" },
+  cestas: { arquivo: "", alt: "Cesta de café da manhã", dica: "Cesta montada, de frente" },
   "suco-laranja": {
     arquivo: "",
     alt: "Suco de laranja",

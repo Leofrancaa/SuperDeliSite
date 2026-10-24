@@ -1,36 +1,37 @@
-/* Superdeli — paleta do forno: casca escura, trigo, folha e farinha. */
+/* SuperDeli — grafite e dourado do letreiro, com seções claras e uma dourada. */
 :root {
-  --forno: #1f1712;
-  --folha: #26321f;
-  --farinha: #eceee6;
-  --trigo: #e9a62f;
-  --casca: #9b4a1c;
-  --creme: #f6ecd6;
+  --grafite: #1c1c1c;
+  --ouro: #c9992b;
+  --nevoa: #f2f1ee;
+  --creme: #f4efe3;
   --fonte: "Bricolage Grotesque Variable", "Segoe UI", system-ui, sans-serif;
   --largura: 76rem;
   --gutter: clamp(1.25rem, 4vw, 3rem);
 }
 
 html[data-tom="escuro"] {
-  --fundo: var(--forno);
+  --fundo: var(--grafite);
   --tinta: var(--creme);
-  --suave: #c8b99d;
-  --linha: rgb(246 236 214 / 0.16);
-  --vazio: rgb(246 236 214 / 0.06);
+  --suave: #bdb6a8;
+  --linha: rgb(244 239 227 / 0.16);
+  --vazio: rgb(244 239 227 / 0.06);
+  --destaque: #d8aa3c;
 }
-html[data-tom="folha"] {
-  --fundo: var(--folha);
-  --tinta: #f2ead2;
-  --suave: #c3c6a8;
-  --linha: rgb(242 234 210 / 0.18);
-  --vazio: rgb(242 234 210 / 0.07);
+html[data-tom="ouro"] {
+  --fundo: var(--ouro);
+  --tinta: #1a1a1a;
+  --suave: #3d3018;
+  --linha: rgb(26 26 26 / 0.2);
+  --vazio: rgb(26 26 26 / 0.08);
+  --destaque: #1a1a1a;
 }
 html[data-tom="claro"] {
-  --fundo: var(--farinha);
-  --tinta: var(--forno);
-  --suave: #5c554a;
-  --linha: rgb(31 23 18 / 0.14);
-  --vazio: rgb(31 23 18 / 0.05);
+  --fundo: var(--nevoa);
+  --tinta: #1f1f1f;
+  --suave: #5f5b54;
+  --linha: rgb(31 31 31 / 0.13);
+  --vazio: rgb(31 31 31 / 0.05);
+  --destaque: #9c7414;
 }
 
 *,
@@ -73,7 +74,7 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid var(--trigo);
+  outline: 3px solid var(--ouro);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -93,8 +94,8 @@ a {
   top: -4rem;
   z-index: 30;
   padding: 0.6rem 1rem;
-  background: var(--trigo);
-  color: var(--forno);
+  background: var(--ouro);
+  color: var(--grafite);
   font-weight: 700;
 }
 .pular:focus {
@@ -146,7 +147,7 @@ main,
   width: 1.6rem;
   height: 1.6rem;
   fill: none;
-  stroke: var(--trigo);
+  stroke: var(--destaque);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -174,10 +175,10 @@ main,
   justify-content: center;
   min-height: 3rem;
   padding: 0 1.4rem;
-  border: 2px solid var(--trigo);
+  border: 2px solid var(--destaque);
   border-radius: 4px;
-  background: var(--trigo);
-  color: var(--forno);
+  background: var(--ouro);
+  color: var(--grafite);
   font-weight: 700;
   font-size: 1.05rem;
   text-decoration: none;
@@ -195,7 +196,7 @@ main,
   border-color: var(--linha);
 }
 .botao-linha:hover {
-  border-color: var(--trigo);
+  border-color: var(--destaque);
 }
 .botao-topo {
   min-height: 2.6rem;
@@ -209,7 +210,7 @@ main,
   grid-template-rows: 1fr auto;
   padding: 6rem var(--gutter) 3.5rem;
 }
-.marca {
+.marca-hero {
   align-self: center;
   justify-self: center;
   margin-top: -8vh;
@@ -222,7 +223,7 @@ main,
   transition: color 0.6s;
 }
 /* com WebGL a marca é desenhada pelas partículas; o texto fica para leitores de tela */
-.webgl .marca {
+.webgl .marca-hero {
   color: transparent;
 }
 .hero-base {
@@ -236,8 +237,8 @@ main,
   margin: 0 auto;
 }
 .hero-texto {
-  max-width: 30ch;
-  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  max-width: 36rem;
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
   line-height: 1.35;
   color: var(--suave);
 }
@@ -367,7 +368,7 @@ h3 {
   right: 0;
   bottom: -1px;
   height: 3px;
-  background: var(--casca);
+  background: var(--destaque);
 }
 .produtos {
   list-style: none;
@@ -403,7 +404,7 @@ h3 {
   margin-top: 0.6rem;
   font-size: 0.92rem;
   font-weight: 650;
-  color: var(--casca);
+  color: var(--destaque);
 }
 @media (prefers-reduced-motion: no-preference) {
   .produtos {
@@ -435,7 +436,7 @@ h3 {
   font-weight: 750;
   font-stretch: 85%;
   font-size: 1.15rem;
-  color: var(--trigo);
+  color: var(--destaque);
   line-height: 1.3;
 }
 .dia p {
@@ -498,12 +499,12 @@ address {
   display: inline-block;
   margin-left: 0.4rem;
   padding: 0 0.45rem;
-  border: 1px solid var(--trigo);
+  border: 1px solid var(--destaque);
   border-radius: 999px;
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.5;
-  color: var(--trigo);
+  color: var(--destaque);
   vertical-align: 0.15em;
   white-space: nowrap;
 }
@@ -565,7 +566,7 @@ address {
   .aba {
     flex-shrink: 0;
   }
-  .marca {
+  .marca-hero {
     margin-top: -16vh;
   }
 }
@@ -607,4 +608,60 @@ address {
 .hora .selo {
   display: table;
   margin: 0.35rem 0 0;
+}
+
+/* Marca no topo e no rodapé */
+.marca {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.marca-nome {
+  font-size: 1.45rem;
+  font-weight: 800;
+  font-stretch: 100%;
+  letter-spacing: -0.02em;
+}
+.marca-d {
+  display: inline-grid;
+  place-items: center;
+  width: 1.05em;
+  height: 1.12em;
+  margin: 0 0.03em;
+  border-radius: 0.18em;
+  background: var(--ouro);
+  color: var(--grafite);
+  vertical-align: -0.1em;
+}
+.marca-sub {
+  margin-top: 0.3rem;
+  font-size: 0.55rem;
+  font-weight: 650;
+  letter-spacing: 0.42em;
+  color: var(--suave);
+}
+.hero-slogan {
+  margin-bottom: 0.6rem;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 750;
+  font-stretch: 85%;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--tinta);
+}
+.rodape {
+  align-items: center;
+}
+.rodape-slogan {
+  margin-right: auto;
+}
+html[data-tom="ouro"] .marca-d {
+  background: var(--grafite);
+  color: var(--ouro);
+}
+html[data-tom="ouro"] .botao-topo {
+  background: var(--grafite);
+  border-color: var(--grafite);
+  color: var(--ouro);
 }

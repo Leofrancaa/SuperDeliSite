@@ -4,11 +4,11 @@
 // marca → espiga de trigo → pão → prato → molduras de foto → pino do mapa.
 // Cada seção declara a forma em data-forma; o tom (escuro/claro) muda a cor.
 import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import type * as T from "three";
 
 export type Forma =
   "marca" | "trigo" | "pao" | "prato" | "molduras" | "pino" | "poeira";
-type Tom = "escuro" | "claro" | "folha";
+type Tom = "escuro" | "claro" | "ouro";
 
 type Layout = { x: number; y: number; altura: number };
 
@@ -29,7 +29,7 @@ function desenhar(ctx: CanvasRenderingContext2D, forma: Forma, fonte: string) {
       ctx.font = `800 118px ${fonte}`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText("superdeli", cx, cy + 6, W - 10);
+      ctx.fillText("SuperDeli", cx, cy + 6, W - 10);
       break;
     }
     case "trigo": {
@@ -235,35 +235,19 @@ function layoutDe(forma: Exclude<Forma, "poeira">, largo: boolean): Layout {
   return l[forma];
 }
 
-const PALETA: Record<Tom, { a: THREE.Color; b: THREE.Color; alfa: number }> = {
-  escuro: {
-    a: new THREE.Color("#f6ecd6"),
-    b: new THREE.Color("#e9a62f"),
-    alfa: 0.95,
-  },
-  folha: {
-    a: new THREE.Color("#f2ead2"),
-    b: new THREE.Color("#e9a62f"),
-    alfa: 0.9,
-  },
-  claro: {
-    a: new THREE.Color("#9b4a1c"),
-    b: new THREE.Color("#c98a22"),
-    alfa: 0.6,
-  },
+// Cores das partículas por tom de seção (grafite e dourado da marca).
+const PALETA: Record<Tom, { a: string; b: string; alfa: number }> = {
+  escuro: { a: "#f4efe3", b: "#d4a43a", alfa: 0.95 },
+  claro: { a: "#3a3a3a", b: "#b8892a", alfa: 0.6 },
+  ouro: { a: "#1d1d1d", b: "#fff6df", alfa: 0.7 },
 };
 
-export function Particulas() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const host = ref.current;
-    if (!host) return;
+function montar(THREE: typeof T, host: HTMLDivElement): (() => void) | undefined {
     const reduzir = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    let renderer: THREE.WebGLRenderer;
+    let renderer: T.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({
         antialias: false,
@@ -274,7 +258,7 @@ export function Particulas() {
       return; // sem WebGL: o site continua normal, só sem as partículas
     }
     document.documentElement.classList.add("webgl");
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     host.appendChild(renderer.domElement);
 
     const cena = new THREE.Scene();
@@ -283,7 +267,7 @@ export function Particulas() {
     camera.position.z = 1 / Math.tan(((fov / 2) * Math.PI) / 180); // altura visível = 2
 
     const largoInicial = window.innerWidth >= 900;
-    const N = largoInicial ? 12000 : 5500;
+    const N = largoInicial ? 6000 : 2800;
     const pos = new Float32Array(N * 3);
     const alvo = new Float32Array(N * 3);
     const vel = new Float32Array(N);
@@ -310,8 +294,8 @@ export function Particulas() {
       transparent: true,
       depthWrite: false,
       uniforms: {
-        uCorA: { value: PALETA.escuro.a.clone() },
-        uCorB: { value: PALETA.escuro.b.clone() },
+        uCorA: { value: new THREE.Color(PALETA.escuro.a) },
+        uCorB: { value: new THREE.Color(PALETA.escuro.b) },
         uAlfa: { value: PALETA.escuro.alfa },
         uPixel: { value: renderer.getPixelRatio() },
         uEscala: { value: 1 },
@@ -326,7 +310,7 @@ export function Particulas() {
           vMistura = aMistura;
           vec4 mv = modelViewMatrix * vec4(position, 1.0);
           gl_Position = projectionMatrix * mv;
-          gl_PointSize = aTam * uEscala * uPixel * (5.0 / -mv.z);
+          gl_PointSize = aTam * uEscala * uPixel * (6.0 / -mv.z);
         }
       `,
       fragmentShader: /* glsl */ `
@@ -446,6 +430,12 @@ export function Particulas() {
     let t = 0;
     const corA = new THREE.Color();
     const corB = new THREE.Color();
+    const cores = Object.fromEntries(
+      (Object.keys(PALETA) as Tom[]).map((k) => [
+        k,
+        { a: new THREE.Color(PALETA[k].a), b: new THREE.Color(PALETA[k].b) },
+      ]),
+    ) as Record<Tom, { a: T.Color; b: T.Color }>;
     function quadro() {
       raf = requestAnimationFrame(quadro);
       if (document.hidden) return;
@@ -476,8 +466,8 @@ export function Particulas() {
       }
       atributoPos.needsUpdate = true;
       const p = PALETA[tom];
-      corA.copy(material.uniforms.uCorA.value).lerp(p.a, 0.06);
-      corB.copy(material.uniforms.uCorB.value).lerp(p.b, 0.06);
+      corA.copy(material.uniforms.uCorA.value).lerp(cores[tom].a, 0.06);
+      corB.copy(material.uniforms.uCorB.value).lerp(cores[tom].b, 0.06);
       material.uniforms.uCorA.value.copy(corA);
       material.uniforms.uCorB.value.copy(corB);
       // menos opaco atrás de texto: poeira e telas estreitas
@@ -521,6 +511,24 @@ export function Particulas() {
       renderer.dispose();
       renderer.domElement.remove();
       document.documentElement.classList.remove("webgl");
+    };
+}
+
+export function Particulas() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const host = ref.current;
+    if (!host) return;
+    let limpar = () => {};
+    let cancelado = false;
+    // three.js só depois da página pronta: a primeira tela abre mais rápido
+    import("three").then((THREE) => {
+      if (!cancelado) limpar = montar(THREE, host) ?? (() => {});
+    });
+    return () => {
+      cancelado = true;
+      limpar();
     };
   }, []);
 

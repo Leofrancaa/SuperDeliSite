@@ -3,7 +3,11 @@
 Site institucional da Superdeli (padaria, delicatessen e restaurante por quilo em
 Conceição do Jacuípe, BA). Next.js gerando um site **estático** (pasta `out/`),
 com um campo de partículas em three.js que forma a marca e muda de forma a cada
-seção: espiga de trigo, pão, prato, molduras de foto e o pino do mapa.
+seção: espiga de trigo, pão, prato, molduras de foto e o pino do mapa. Cores da
+marca (grafite e dourado); three.js é carregado depois da página abrir.
+
+A marca no topo é feita em texto; com o arquivo oficial do logo, troque
+`src/components/Marca.tsx` por uma imagem em `public/`.
 
 ## Rodar no computador
 

@@ -2,12 +2,13 @@
 // (Supabase) sem mudar os componentes: basta manter o mesmo formato.
 import type { FotoId } from "./fotos";
 
-export type Categoria = "padaria" | "buffet" | "salgados" | "bebidas";
+export type Categoria = "padaria" | "buffet" | "salgados" | "cestas" | "bebidas";
 
 export const categorias: { id: Categoria; nome: string }[] = [
   { id: "padaria", nome: "Padaria" },
   { id: "buffet", nome: "Buffet" },
   { id: "salgados", nome: "Salgados e doces" },
+  { id: "cestas", nome: "Cestas" },
   { id: "bebidas", nome: "Bebidas" },
 ];
 
@@ -75,6 +76,13 @@ export const produtos: Produto[] = [
     texto: "Sobremesa clássica, lisinho e com calda de caramelo.",
     medida: "unidade",
     foto: "pudim",
+  },
+  {
+    nome: "Cestas para presentear",
+    categoria: "cestas",
+    texto: "Cestas de café da manhã e de presente. Consulte as opções na loja.",
+    medida: "sob encomenda",
+    foto: "cestas",
   },
   {
     nome: "Suco de laranja",
