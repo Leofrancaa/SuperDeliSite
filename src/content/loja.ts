@@ -37,3 +37,17 @@ export const refeicoes: { nome: string; texto: string; horas: Info }[] = [
     horas: { valor: "fim da tarde", confirmado: false },
   },
 ];
+
+// Unidades. A Loja 2 aparece nos posts do Instagram; complete a Loja 1.
+export const lojas: { nome: string; endereco: Info; mapa: string }[] = [
+  {
+    nome: "Loja 2",
+    endereco: { valor: "Rua Dois de Julho, Centro", confirmado: true },
+    mapa: loja.mapa,
+  },
+  {
+    nome: "Loja 1",
+    endereco: { valor: "", confirmado: false },
+    mapa: "https://www.google.com/maps/search/?api=1&query=SuperDeli+Concei%C3%A7%C3%A3o+do+Jacu%C3%ADpe+BA",
+  },
+];

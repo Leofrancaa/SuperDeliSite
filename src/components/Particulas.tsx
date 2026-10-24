@@ -7,7 +7,8 @@ import { useEffect, useRef } from "react";
 import type * as T from "three";
 
 export type Forma =
-  "marca" | "trigo" | "pao" | "prato" | "molduras" | "pino" | "poeira";
+  | "presente"
+  | "marca" | "trigo" | "pao" | "prato" | "molduras" | "pino" | "poeira";
 type Tom = "escuro" | "claro" | "ouro";
 
 type Layout = { x: number; y: number; altura: number };
@@ -160,6 +161,26 @@ function desenhar(ctx: CanvasRenderingContext2D, forma: Forma, fonte: string) {
       ctx.fill();
       break;
     }
+    case "presente": {
+      // caixa de presente com fita e laço (cestas)
+      ctx.save();
+      ctx.translate(cx, cy + 20);
+      ctx.fillRect(-120, -40, 240, 150);
+      ctx.fillRect(-135, -80, 270, 44);
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillRect(-14, -80, 28, 190);
+      ctx.fillRect(-120, -44, 240, 6);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.lineWidth = 12;
+      ctx.beginPath();
+      ctx.ellipse(-40, -108, 40, 22, -0.4, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.ellipse(40, -108, 40, 22, 0.4, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+      break;
+    }
     case "pino": {
       ctx.save();
       ctx.translate(cx, cy - 10);
@@ -221,6 +242,7 @@ function layoutDe(forma: Exclude<Forma, "poeira">, largo: boolean): Layout {
       prato: { x: 0, y: 0.24, altura: 0.36 },
       molduras: { x: 0, y: 0.24, altura: 0.34 },
       pino: { x: 0, y: 0.22, altura: 0.42 },
+      presente: { x: 0, y: 0.24, altura: 0.34 },
     };
     return alto[forma];
   }
@@ -231,6 +253,7 @@ function layoutDe(forma: Exclude<Forma, "poeira">, largo: boolean): Layout {
     prato: { x: -0.22, y: 0.02, altura: 0.52 },
     molduras: { x: 0.23, y: 0.02, altura: 0.5 },
     pino: { x: 0.26, y: 0, altura: 0.8 },
+    presente: { x: -0.26, y: 0.02, altura: 0.62 },
   };
   return l[forma];
 }

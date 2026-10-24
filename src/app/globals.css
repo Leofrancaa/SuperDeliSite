@@ -41,7 +41,7 @@ html[data-tom="claro"] {
 }
 
 html {
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 7rem;
 }
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -126,10 +126,8 @@ main,
   inset: 0 0 auto;
   z-index: 20;
   display: flex;
-  align-items: center;
-  gap: 2rem;
-  padding: 0.85rem var(--gutter);
-  background: color-mix(in srgb, var(--fundo) 78%, transparent);
+  flex-direction: column;
+  background: color-mix(in srgb, var(--fundo) 80%, transparent);
   backdrop-filter: blur(10px);
   transition: background-color 0.9s ease;
 }
@@ -544,6 +542,7 @@ address {
   }
   .padaria,
   .buffet,
+  .cestas,
   .visite,
   .cabeca {
     padding-top: 40vh;
@@ -664,4 +663,152 @@ html[data-tom="ouro"] .botao-topo {
   background: var(--grafite);
   border-color: var(--grafite);
   color: var(--ouro);
+}
+
+/* Faixa de informações no topo (horário e Instagram) */
+.topo-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0.35rem var(--gutter);
+  background: var(--grafite);
+  color: #d8c48f;
+  font-size: 0.85rem;
+  font-weight: 550;
+}
+.topo-info a {
+  text-decoration: none;
+}
+.topo-info a:hover {
+  text-decoration: underline;
+}
+.topo-linha {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.7rem var(--gutter);
+}
+
+/* Foto de fundo da abertura: fica atrás das partículas e escurece para baixo */
+.hero-foto {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100svh;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgb(28 28 28 / 0.8) 0%, rgb(28 28 28 / 0.9) 60%, #1c1c1c 100%),
+    url("/fotos/pao-frances.jpg") center / cover no-repeat;
+}
+
+/* Atalhos por categoria, com foto */
+.atalhos-bloco {
+  padding-top: clamp(3rem, 6vw, 4.5rem);
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+.atalhos {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--largura);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.atalhos a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.atalhos .atalho-foto {
+  aspect-ratio: 1;
+  border-radius: 999px;
+  transition: transform 0.25s ease;
+}
+.atalhos .foto-vazia span {
+  display: none;
+}
+.atalhos a:hover .atalho-foto {
+  transform: scale(1.03);
+}
+.atalhos a span {
+  text-align: center;
+}
+
+/* Cestas (seção dourada) */
+.botao-escuro {
+  background: var(--grafite);
+  border-color: var(--grafite);
+  color: var(--ouro);
+}
+.botao-escuro:hover {
+  background: transparent;
+  color: var(--grafite);
+}
+.cestas .acoes {
+  margin-top: 2rem;
+}
+
+/* Lojas */
+.lojas {
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.lojas li {
+  padding: 1.2rem 1.3rem;
+  border: 1px solid var(--linha);
+  border-radius: 14px;
+}
+.lojas p {
+  margin: 0.4rem 0 0.8rem;
+  color: var(--suave);
+  font-size: 1.02rem;
+}
+.lojas a {
+  font-weight: 700;
+  color: var(--destaque);
+}
+.visite .acoes {
+  margin-top: 2rem;
+}
+
+@media (max-width: 899px) {
+  .so-largo {
+    display: none;
+  }
+  .atalhos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  /* no celular os atalhos viram uma fileira que desliza para o lado */
+  .atalhos {
+    display: flex;
+    gap: 0.9rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin: 0 calc(var(--gutter) * -1);
+    padding: 0 var(--gutter);
+  }
+  .atalhos li {
+    flex: 0 0 7.2rem;
+    scroll-snap-align: start;
+  }
+  .atalhos a {
+    font-size: 0.98rem;
+  }
+  .lojas {
+    grid-template-columns: 1fr;
+  }
+  .topo-info {
+    gap: 1rem;
+    justify-content: space-between;
+  }
 }
